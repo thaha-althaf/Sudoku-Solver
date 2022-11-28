@@ -159,17 +159,6 @@ void solve(int size,vector<vector<int> > &sudoku,vector<vector<vector<int> > > &
  }
 }
 
-void solve2(int size,vector<vector<int> > &sudoku,vector<vector<vector<int> > > &temp,vector<vector<stack<int> > > &rowcount,vector<vector<stack<int> > > &colcount,vector<vector<stack<int> > >&boxcount)
-{
-   for(int i=0;i<size;i++)
-   {
-    for(int j=1;j<=size;j++)
-    {
-       
-    }
-   }
-}
-
 void display_temp(vector<vector<vector<int> > > temp)
 {
     for(int i=0;i<temp.size();i++)
@@ -206,8 +195,8 @@ int main()
     sudoku=initialize_sudoku(size);
 
     vector<vector<vector<int> > > temp=initialize_temp(size,sudoku,rowcount,colcount,boxcount);
-    //solve(size,sudoku,temp);
-   // display_sudoku(sudoku);
+    solve(size,sudoku,temp);
+    display_sudoku(sudoku);
    // display_temp(temp);
     //display_count(boxcount);
 	return 0;
