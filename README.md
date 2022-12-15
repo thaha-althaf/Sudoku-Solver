@@ -10,7 +10,7 @@ Enter the size of the sudoku as the first line.
 Enter the sudoku line by line with the empty cell as "."   
 
 Example:   
-'9  
+>9  
 53..7....  
 6..195...  
 .98....6.  
@@ -19,4 +19,8 @@ Example:
 7...2...6   
 .6....28.   
 ...419..5   
-....8..79'
+....8..79
+
+### Contributor
+1. [Thaha Althaf Hussain](https://github.com/thaha-althaf)
+2. [Rebecca Susan Jacob](https://github.com/b-jamba)
