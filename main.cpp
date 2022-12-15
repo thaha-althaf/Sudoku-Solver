@@ -4,6 +4,7 @@
 #include <stack>
 using namespace std;
 
+//check if the number is present in the row. if yes it will return true
 bool check_row(vector<vector<int> > sudoku,int r,int c,int number)
 {
     
@@ -14,6 +15,8 @@ bool check_row(vector<vector<int> > sudoku,int r,int c,int number)
     }
     return false;
 }
+
+//check if the number is present in the column. if yes it will return true
 bool check_column(vector<vector<int> > sudoku,int r,int c,int number)
 {
     
@@ -24,6 +27,8 @@ bool check_column(vector<vector<int> > sudoku,int r,int c,int number)
     }
     return false;
 }
+
+//check if the number is present in the 3x3 box. if yes it will return true
 bool check_box(vector<vector<int> > sudoku,int r,int c,int number)
 {
     int i,j,n;   
@@ -41,6 +46,7 @@ bool check_box(vector<vector<int> > sudoku,int r,int c,int number)
     return false;
 }
 
+//function to display sudoku 
 void display_sudoku(vector<vector<int> > sudoku)
 {
     for(int i=0;i<sudoku.size();i++)
@@ -50,6 +56,8 @@ void display_sudoku(vector<vector<int> > sudoku)
         cout<<endl<<endl;
     }
 }
+
+//this creates the vector fom users input in a way that all the blanks are stored as "."
 vector<vector<int> > initialize_sudoku(int size)
 {
     vector<vector<int> > sudoku(size,vector<int> (size,0));
@@ -65,7 +73,9 @@ vector<vector<int> > initialize_sudoku(int size)
     }
     return sudoku;
 }
-vector<vector<vector<int> > > initialize_temp(int size,vector<vector<int> >sudoku,vector<vector<stack<int> > >  &rowcount,vector<vector<stack<int> > > &colcount,vector<vector<stack<int> > >  &boxcount)
+
+//it will creae a temperory sudoku vector where each cell will store possible sudoku entries after checking rows, columns, and the 3x3 box. 
+vector<vector<vector<int> > > initialize_temp(int size,vector<vector<int> >sudoku)
 {
     int n=sqrt(size);
     vector<vector<vector<int> > > temp(size,vector<vector<int> >(size,vector<int>(0)));
@@ -81,9 +91,7 @@ vector<vector<vector<int> > > initialize_temp(int size,vector<vector<int> >sudok
                 {
                     temp[i][j].push_back(k);
                     rowcount[i][k].push(j);
-                    colcount[j][k].push(i);
-                    int y=((i/n)*n)+(j/n);
-                    
+                    colcount[j][k].push(i);                  
                 }
             }
            }
@@ -92,6 +100,7 @@ vector<vector<vector<int> > > initialize_temp(int size,vector<vector<int> >sudok
     return temp;
 }
 
+//this function deletes a particular number in the temperory vector in the entire row
 void del_row(int size,vector<vector<vector<int> > > &temp,int r,int number)
 {
     for(int i=0;i<size;i++)
@@ -103,6 +112,8 @@ void del_row(int size,vector<vector<vector<int> > > &temp,int r,int number)
         }
     }
 }
+
+//this function deletes a particular number in the temperory vector in the entire column
 void del_column(int size,vector<vector<vector<int> > > &temp,int c,int number)
 {
     for(int i=0;i<size;i++)
@@ -114,6 +125,8 @@ void del_column(int size,vector<vector<vector<int> > > &temp,int c,int number)
         }
     }
 }
+
+//this function deletes a particular number in the temperory vector in the entire 3x3 box
 void del_box(int size,vector<vector<vector<int> > > &temp,int r,int c,int number)
 {
     int i,j,n;
@@ -135,6 +148,7 @@ void del_box(int size,vector<vector<vector<int> > > &temp,int r,int c,int number
     } 
 }
 
+//this function solves sudoku with the help of the temperory vector and updake sudoku vector with coorect sudoku number 
 void solve(int size,vector<vector<int> > &sudoku,vector<vector<vector<int> > > &temp)
 { 
  for(int f=0;f<size;f++)
@@ -159,6 +173,8 @@ void solve(int size,vector<vector<int> > &sudoku,vector<vector<vector<int> > > &
  }
 }
 
+
+// this function displays temperory vector. iseful for debugging.
 void display_temp(vector<vector<vector<int> > > temp)
 {
     for(int i=0;i<temp.size();i++)
@@ -175,6 +191,7 @@ void display_temp(vector<vector<vector<int> > > temp)
     }
 }
 
+// this function displays the total number of elements present in each cell of temperory vector
 void display_count(vector<vector<int> > temp)
 {
     for(int i=0;i<temp.size();i++)
@@ -184,20 +201,20 @@ void display_count(vector<vector<int> > temp)
         cout<<endl;
     }
 }
+
+
 int main() 
 {
     int size;
     cin>>size;
-    vector<vector<stack<int> > > rowcount(size,vector<stack<int> >(size));
-    vector<vector<stack<int> > > colcount(size,vector<stack<int> >(size));
-    vector<vector<stack<int> > > boxcount(size,vector<stack<int> >(size));
     vector<vector<int> > sudoku(size,vector<int> (size));
     sudoku=initialize_sudoku(size);
 
-    vector<vector<vector<int> > > temp=initialize_temp(size,sudoku,rowcount,colcount,boxcount);
+    vector<vector<vector<int> > > temp=initialize_temp(size,sudoku);
     solve(size,sudoku,temp);
     display_sudoku(sudoku);
-   // display_temp(temp);
-    //display_count(boxcount);
+
+    // the below code is used for debugging
+    // display_temp(temp);
 	return 0;
 }
