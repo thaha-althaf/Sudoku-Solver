@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <cmath>
 using namespace std;
 
 //check if the number is present in the row. if yes it will return true
@@ -89,9 +90,7 @@ vector<vector<vector<int> > > initialize_temp(int size,vector<vector<int> >sudok
             {
                 if(!check_row(sudoku,i,j,k)&&!check_column(sudoku,i,j,k)&&!check_box(sudoku,i,j,k))
                 {
-                    temp[i][j].push_back(k);
-                    rowcount[i][k].push(j);
-                    colcount[j][k].push(i);                  
+                    temp[i][j].push_back(k);         
                 }
             }
            }
@@ -205,8 +204,10 @@ void display_count(vector<vector<int> > temp)
 
 int main() 
 {
+    //size store the number of rows 
     int size;
     cin>>size;
+	
     vector<vector<int> > sudoku(size,vector<int> (size));
     sudoku=initialize_sudoku(size);
 
