@@ -1,5 +1,5 @@
 # SUDOKU
-sudoku solver for easy and medium sudoku puzzles.
+Sudoku solver for easy and medium sudoku puzzles.
 
 ### Description 
 This code uses a temporary vector to store all the possible numbers in each cell. Using this temporary vector, solving the sudoku.
